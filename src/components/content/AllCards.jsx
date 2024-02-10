@@ -25,11 +25,8 @@ const AllCards = () => {
               <Champion
                 name={card.name}
                 rarity={card.rarity}
-                img={
-                  card.iconUrls.evolutionMedium
-                    ? card.iconUrls.evolutionMedium
-                    : card.iconUrls.medium
-                }
+                img={card.iconUrls.medium}
+                imgEvo={card.iconUrls.evolutionMedium}
                 icon={card.iconUrls.medium}
                 maxlevel={card.maxLevel}
                 evolevel={card.maxEvolutionLevel}

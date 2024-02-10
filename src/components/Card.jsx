@@ -13,7 +13,13 @@ import {
 const Champion = (props) => {
   return (
     <Card
-      sx={{ maxWidth: 280, height: 350, padding: 2 }}
+      sx={{
+        maxWidth: 280,
+        height: 350,
+        padding: 2,
+        boxShadow:
+          "0px 3px 5px -1px rgba(65, 128, 196, 0.4), 0px 6px 10px 0px rgba(65, 128, 196,0.44), 0px 1px 18px 0px rgba(65, 128, 196,0.44)",
+      }}
       elevation={6}
       className={props.evolevel ? "evo" : ""}
     >
@@ -43,6 +49,7 @@ const Champion = (props) => {
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           <ul>
+            <li>Name: {props.name}</li>
             <li>Maxlevel : {props.maxlevel}</li>
             {props.evolevel ? (
               <li>Max evolution level : {props.evolevel}</li>
@@ -50,6 +57,7 @@ const Champion = (props) => {
               ""
             )}
             <li>Elixr Cost: {props.elixr}</li>
+            <li>Evolution: {props.imgEvo ? "YES" : "NO"}</li>
           </ul>
         </Typography>
       </CardContent>
