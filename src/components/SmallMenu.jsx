@@ -15,7 +15,7 @@ import {
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const SmallMenu = () => {
+const SmallMenu = ({ setMode, mode }) => {
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -108,7 +108,10 @@ const SmallMenu = () => {
               <ListItemIcon>
                 <ModeNight />
               </ListItemIcon>
-              <Switch />
+              <Switch
+                // eslint-disable-next-line no-unused-vars
+                onChange={(e) => setMode(mode === "light" ? "dark" : "light")}
+              />
             </ListItemButton>
           </ListItem>
         </List>

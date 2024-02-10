@@ -10,7 +10,8 @@ import {
   Switch,
 } from "@mui/material";
 
-const Sidebar = () => {
+// eslint-disable-next-line react/prop-types
+const Sidebar = ({ setMode, mode }) => {
   return (
     <Box
       flex={1}
@@ -49,7 +50,10 @@ const Sidebar = () => {
               <ListItemIcon>
                 <ModeNight />
               </ListItemIcon>
-              <Switch />
+              <Switch
+                // eslint-disable-next-line no-unused-vars
+                onChange={(e) => setMode(mode === "light" ? "dark" : "light")}
+              />
             </ListItemButton>
           </ListItem>
         </List>

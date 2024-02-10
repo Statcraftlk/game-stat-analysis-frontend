@@ -16,17 +16,14 @@ const StyledToolbar = styled(Toolbar)({
   justifyContent: "space-between",
 });
 
-const Navbar = () => {
-  const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
+// eslint-disable-next-line react/prop-types
+const Navbar = ({ setMode, mode }) => {
   return (
-    <AppBar position="sticky" color="error">
+    <AppBar position="sticky" color="primary">
       <StyledToolbar>
         <Typography variant="h6">CR Deck Analysis</Typography>
         <Box position="relative" display={{ md: "block", lg: "none" }}>
-          <SmallMenu position="absolute" />
+          <SmallMenu position="absolute" setMode={setMode} mode={mode} />
         </Box>
       </StyledToolbar>
     </AppBar>
