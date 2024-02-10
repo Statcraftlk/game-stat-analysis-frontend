@@ -36,12 +36,21 @@ function App() {
     <>
       <ThemeProvider theme={darkTheme}>
         <BrowserRouter>
-          <Box bgcolor={"background.default"} color={"text.primary"}>
+          <Box
+            sx={{
+              bgcolor: "background.default",
+              color: "text.primary",
+              minHeight: "100vh", // Ensure the box takes up the full height of the viewport
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <Navbar setMode={setMode} mode={mode} />
             <Stack
               direction="row"
               justifyContent="space-between"
               spacing={{ xs: 0, md: 2 }} // Add the spacing prop here
+              flex="1"
             >
               <Sidebar setMode={setMode} mode={mode} />
               <ContentArea />
