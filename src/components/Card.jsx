@@ -14,7 +14,7 @@ const Champion = (props) => {
   return (
     <Card
       sx={{
-        maxWidth: 280,
+        maxWidth: { xs: "100%", sm: "100%", md: "300px" },
         height: 350,
         padding: 2,
         boxShadow:

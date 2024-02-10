@@ -16,12 +16,12 @@ const AllCards = () => {
     <>
       <Grid
         container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 12, md: 16 }}
+        spacing={{ xs: 1, md: 3 }}
+        columns={{ xs: 12, sm: 12, md: 12 }}
       >
         {cards.items.slice(startIndex, endIndex).map((card) => {
           return (
-            <Grid key={card.name} item xs={2} sm={4} md={4}>
+            <Grid key={card.name} item xs={12} sm={6} md={3}>
               <Champion
                 name={card.name}
                 rarity={card.rarity}
@@ -36,7 +36,11 @@ const AllCards = () => {
           );
         })}
       </Grid>
-      <Stack spacing={2} sx={{ float: "right" }} padding={2}>
+      <Stack
+        spacing={2}
+        sx={{ float: "right", display: "flex", justifyContent: "center" }}
+        padding={2}
+      >
         <Pagination
           count={Math.ceil(cards.items.length / 8)}
           variant="outlined"
