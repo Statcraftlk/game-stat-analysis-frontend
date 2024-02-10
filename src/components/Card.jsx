@@ -12,7 +12,11 @@ import {
 
 const Champion = (props) => {
   return (
-    <Card sx={{ maxWidth: 280, height: 350, padding: 2 }} elevation={6}>
+    <Card
+      sx={{ maxWidth: 280, height: 350, padding: 2 }}
+      elevation={6}
+      className={props.evolevel ? "evo" : ""}
+    >
       <CardHeader
         avatar={
           <Avatar

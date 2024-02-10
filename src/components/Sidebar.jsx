@@ -1,4 +1,5 @@
 import { Dashboard, ModeNight, Pix, TrackChanges } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 import {
   Box,
   List,
@@ -15,7 +16,7 @@ const Sidebar = () => {
       <Box position="fixed">
         <List>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/cards">
+            <ListItemButton component={Link} to="/cards">
               <ListItemIcon>
                 <Dashboard />
               </ListItemIcon>
@@ -23,7 +24,7 @@ const Sidebar = () => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/evo-cards">
+            <ListItemButton component={Link} to="/evo-cards">
               <ListItemIcon>
                 <TrackChanges />
               </ListItemIcon>
@@ -31,7 +32,7 @@ const Sidebar = () => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/create-deck">
+            <ListItemButton component={Link} to="/create-deck">
               <ListItemIcon>
                 <Pix />
               </ListItemIcon>
