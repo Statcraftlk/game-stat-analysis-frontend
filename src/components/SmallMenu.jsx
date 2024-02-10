@@ -22,7 +22,7 @@ const SmallMenu = () => {
       <Button
         onClick={() => setOpen(true)}
         sx={{
-          width: "40px",
+          width: "35px",
           height: "40px",
         }}
       >
