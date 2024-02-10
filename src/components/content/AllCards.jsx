@@ -36,11 +36,7 @@ const AllCards = () => {
           );
         })}
       </Grid>
-      <Stack
-        spacing={2}
-        sx={{ float: "right", display: "flex", justifyContent: "center" }}
-        padding={2}
-      >
+      <Stack spacing={2} sx={{ float: "right" }} padding={2}>
         <Pagination
           count={Math.ceil(cards.items.length / 8)}
           variant="outlined"

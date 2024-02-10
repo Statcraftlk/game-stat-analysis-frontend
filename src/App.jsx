@@ -11,7 +11,11 @@ function App() {
       <BrowserRouter>
         <Box>
           <Navbar />
-          <Stack direction="row" spacing={2} justifyContent="space-between">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            spacing={{ xs: 0, md: 2 }} // Add the spacing prop here
+          >
             <Sidebar />
             <ContentArea />
           </Stack>

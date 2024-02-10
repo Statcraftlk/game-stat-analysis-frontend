@@ -15,7 +15,7 @@ const Sidebar = () => {
     <Box
       flex={1}
       pt={2}
-      sx={{ display: { xs: "none", sm: "none", md: "none" } }}
+      sx={{ display: { xs: "none", sm: "none", lg: "block" } }}
     >
       <Box position="fixed">
         <List>
