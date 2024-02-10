@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { ModeNight } from "@mui/icons-material";
+import { LightMode, ModeNight } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -106,11 +106,12 @@ const SmallMenu = ({ setMode, mode }) => {
           <ListItem>
             <ListItemButton>
               <ListItemIcon>
-                <ModeNight />
+                {mode === "dark" ? <LightMode /> : <ModeNight />}
               </ListItemIcon>
               <Switch
                 // eslint-disable-next-line no-unused-vars
                 onChange={(e) => setMode(mode === "light" ? "dark" : "light")}
+                defaultChecked={mode === "dark"}
               />
             </ListItemButton>
           </ListItem>

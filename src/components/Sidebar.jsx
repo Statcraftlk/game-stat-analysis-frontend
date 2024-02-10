@@ -1,4 +1,10 @@
-import { Dashboard, ModeNight, Pix, TrackChanges } from "@mui/icons-material";
+import {
+  Dashboard,
+  LightMode,
+  ModeNight,
+  Pix,
+  TrackChanges,
+} from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import {
   Box,
@@ -48,11 +54,12 @@ const Sidebar = ({ setMode, mode }) => {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <ModeNight />
+                {mode === "dark" ? <LightMode /> : <ModeNight />}
               </ListItemIcon>
               <Switch
                 // eslint-disable-next-line no-unused-vars
                 onChange={(e) => setMode(mode === "light" ? "dark" : "light")}
+                defaultChecked={mode === "dark"}
               />
             </ListItemButton>
           </ListItem>
