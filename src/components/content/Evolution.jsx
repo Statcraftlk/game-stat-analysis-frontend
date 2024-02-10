@@ -1,5 +1,5 @@
 import { Grid, Pagination, Stack } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Champion from "../Card";
 import cards from "../../data.json";
 

@@ -17,7 +17,7 @@ const AllCards = () => {
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
+        columns={{ xs: 4, sm: 12, md: 16 }}
       >
         {cards.items.slice(startIndex, endIndex).map((card) => {
           return (
@@ -31,6 +31,9 @@ const AllCards = () => {
                     : card.iconUrls.medium
                 }
                 icon={card.iconUrls.medium}
+                maxlevel={card.maxLevel}
+                evolevel={card.maxEvolutionLevel}
+                elixr={card.elixirCost}
               />
             </Grid>
           );
