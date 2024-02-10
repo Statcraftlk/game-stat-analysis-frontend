@@ -12,14 +12,10 @@ const EvolutionCards = () => {
 
   return (
     <>
-      <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 16 }}
-      >
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={12}>
         {evoCards.map((card) => {
           return (
-            <Grid key={card.name} item xs={2} sm={4} md={4}>
+            <Grid key={card.name} item xs={12} sm={6} md={3}>
               <Champion
                 name={card.name}
                 rarity={card.rarity}

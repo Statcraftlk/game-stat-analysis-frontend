@@ -14,11 +14,7 @@ const AllCards = () => {
 
   return (
     <>
-      <Grid
-        container
-        spacing={{ xs: 1, md: 3 }}
-        columns={{ xs: 12, sm: 12, md: 12 }}
-      >
+      <Grid container spacing={{ xs: 1, md: 3 }} columns={12}>
         {cards.items.slice(startIndex, endIndex).map((card) => {
           return (
             <Grid key={card.name} item xs={12} sm={6} md={3}>
