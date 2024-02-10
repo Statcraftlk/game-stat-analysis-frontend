@@ -7,7 +7,6 @@ const AllCards = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(8);
   const changePage = (page) => {
-    console.log(page);
     setStartIndex((page - 1) * 8);
     setEndIndex(page * 8);
   };
