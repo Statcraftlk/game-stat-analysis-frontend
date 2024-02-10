@@ -7,9 +7,9 @@ import { Route, Routes } from "react-router-dom";
 
 const ContentArea = () => {
   return (
-    <Box flex={4} p={2}>
+    <Box flex={5} p={2}>
       <Routes>
-        <Route path="/" element={<AllCards />} />
+        <Route path="/*" element={<AllCards />} />
         <Route path="/cards" element={<AllCards />} />
         <Route path="/evo-cards" element={<EvolutionCards />} />
         <Route path="/create-deck" element={<CreateDeck />} />

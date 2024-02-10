@@ -8,7 +8,7 @@ const StyledToolbar = styled(Toolbar)({
 
 const Navbar = () => {
   return (
-    <AppBar position="sticky" color="secondary">
+    <AppBar position="sticky" color="error">
       <StyledToolbar>
         <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
           CR Deck Analysis
