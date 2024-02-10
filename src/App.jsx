@@ -1,18 +1,37 @@
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import ContentArea from "./components/ContentArea";
-import { Box, Stack, ThemeProvider, createTheme } from "@mui/material";
+import {
+  Box,
+  Stack,
+  ThemeProvider,
+  createTheme,
+  useMediaQuery,
+} from "@mui/material";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
-  const [mode, setMode] = useState("dark");
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  const [mode, setMode] = useState(
+    localStorage.getItem("darkMode")
+      ? localStorage.getItem("darkMode")
+      : prefersDarkMode
+      ? "dark"
+      : "light"
+  );
+  console.log(localStorage.getItem("darkMode"));
+  console.log(mode);
+  useEffect(() => {
+    localStorage.setItem("darkMode", mode);
+  }, [mode]);
   const darkTheme = createTheme({
     palette: {
       mode: mode,
     },
   });
+
   return (
     <>
       <ThemeProvider theme={darkTheme}>
