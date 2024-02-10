@@ -19,31 +19,49 @@ const SmallMenu = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Button color="inherit" onClick={() => setOpen(true)}>
-        <Stack spacing={"5px"}>
+      <Button
+        onClick={() => setOpen(true)}
+        sx={{
+          width: "40px",
+          height: "40px",
+        }}
+      >
+        <Stack position="relative" paddingRight={4}>
           <Box
             sx={{
-              width: "30px",
+              position: "absolute",
+              width: open ? "35px" : "30px",
               height: "3px",
               backgroundColor: "white",
+              top: "0px",
+              transform: open ? "rotate(45deg)" : "rotate(0deg)",
+              transition: " 0.2s ease",
             }}
           />
           <Box
             sx={{
+              position: "absolute",
               width: "30px",
+              top: "10px",
               height: "3px",
               backgroundColor: "white",
+              display: open ? "none" : "block",
             }}
           />
           <Box
             sx={{
-              width: "30px",
+              position: "absolute",
+              width: open ? "35px" : "30px",
               height: "3px",
+              top: open ? "0" : "-10px",
+              transform: open ? "rotate(-45deg)" : "rotate(0deg)",
               backgroundColor: "white",
+              transition: " 0.2s ease",
             }}
           />
         </Stack>
       </Button>
+
       <Menu
         id="account-menu"
         open={open}
