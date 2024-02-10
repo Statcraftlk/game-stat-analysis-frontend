@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 
 import Champion from "../Card";
-import cards from "../../data.json";
+import cards from "../../games/clash-royale/data.json";
 
 const EvolutionCards = () => {
   const evoCards = cards.items.filter(

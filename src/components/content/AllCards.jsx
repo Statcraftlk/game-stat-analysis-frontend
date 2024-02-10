@@ -1,7 +1,7 @@
 import { Grid, Pagination, Stack } from "@mui/material";
 import { useState } from "react";
 import Champion from "../Card";
-import cards from "../../data.json";
+import cards from "../../games/clash-royale/data.json";
 
 const AllCards = () => {
   const [startIndex, setStartIndex] = useState(0);
