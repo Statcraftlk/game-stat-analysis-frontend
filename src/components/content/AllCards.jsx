@@ -29,13 +29,13 @@ const AllCards = () => {
     "Search value from all components:",
     search.search ? search.search.name : ""
   );
-  // Reset page number when search input changes
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(8);
   useEffect(() => {
     setStartIndex(0);
     setEndIndex(8);
-  }, [search.search]);
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(8);
+  }, [search]);
+
   const changePage = (page) => {
     setStartIndex((page - 1) * 8);
     setEndIndex(page * 8);
