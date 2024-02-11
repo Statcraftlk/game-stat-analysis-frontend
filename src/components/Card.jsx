@@ -18,6 +18,7 @@ const Champion = (props) => {
         maxWidth: { xs: "100%", sm: "100%", md: "300px" },
         height: 350,
         padding: 2,
+        backgroundImage: props.imgEvo && "url('/giphy.gif')",
         boxShadow:
           props.imgEvo &&
           "0px 3px 5px -1px rgba(196, 65, 65, 0.4), 0px 6px 10px 0px rgba(196, 65, 65, 0.44), 0px 1px 18px 0px rgba(196, 65, 65, 0.44)",

@@ -7,6 +7,7 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import {
+  Autocomplete,
   Box,
   List,
   ListItem,
@@ -14,10 +15,23 @@ import {
   ListItemIcon,
   ListItemText,
   Switch,
+  TextField,
 } from "@mui/material";
+import cards from "../games/clash-royale/data.json";
+import { SearchContext } from "../App";
+import { useContext } from "react";
 
 // eslint-disable-next-line react/prop-types
 const Sidebar = ({ setMode, mode }) => {
+  const { search, updateSearchInputs } = useContext(SearchContext); // Access the search state and update function from the context
+
+  const handleSearchInputChange = (event, newValue) => {
+    if (newValue !== null) {
+      updateSearchInputs("search", newValue);
+    } else {
+      updateSearchInputs("search", "");
+    }
+  };
   return (
     <Box
       flex={1}
@@ -49,6 +63,20 @@ const Sidebar = ({ setMode, mode }) => {
               </ListItemIcon>
               <ListItemText primary="Create new deck" />
             </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              getOptionLabel={(option) => option.name || ""}
+              options={cards.items}
+              sx={{ width: 200 }}
+              value={search.search}
+              onChange={handleSearchInputChange}
+              renderInput={(params) => (
+                <TextField {...params} label="Player cards" />
+              )}
+            />
           </ListItem>
 
           <ListItem disablePadding>
