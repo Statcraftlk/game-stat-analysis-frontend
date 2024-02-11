@@ -1,5 +1,5 @@
 import { Grid, Pagination, Stack } from "@mui/material";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Champion from "../Card";
 import cards from "../../games/clash-royale/data.json";
 import { SearchContext } from "../../App";
@@ -29,6 +29,11 @@ const AllCards = () => {
     "Search value from all components:",
     search.search ? search.search.name : ""
   );
+  // Reset page number when search input changes
+  useEffect(() => {
+    setStartIndex(0);
+    setEndIndex(8);
+  }, [search.search]);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(8);
   const changePage = (page) => {
