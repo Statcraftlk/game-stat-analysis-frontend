@@ -16,9 +16,18 @@ import {
   TextField,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { SearchContext } from "../App";
 
 const SmallMenu = ({ setMode, mode }) => {
+  const { search, updateSearchInputs } = useContext(SearchContext);
+  const handleSearchInputChange = (event, newValue) => {
+    if (newValue !== null) {
+      updateSearchInputs("search", newValue);
+    } else {
+      updateSearchInputs("search", "");
+    }
+  };
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -109,9 +118,11 @@ const SmallMenu = ({ setMode, mode }) => {
             <Autocomplete
               disablePortal
               id="combo-box-demo"
-              getOptionLabel={(option) => option.name}
+              getOptionLabel={(option) => option.name || ""}
               options={cards.items}
               sx={{ width: { xs: 200, md: 400 } }}
+              value={search.search}
+              onChange={handleSearchInputChange}
               renderInput={(params) => (
                 <TextField {...params} label="Player cards" />
               )}

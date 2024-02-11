@@ -1,7 +1,8 @@
 import { Grid, Pagination, Stack } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Champion from "../Card";
 import cards from "../../games/clash-royale/data.json";
+import { SearchContext } from "../../App";
 
 const sortByEvolution = (a, b) => {
   if (a.iconUrls.evolutionMedium && !b.iconUrls.evolutionMedium) {
@@ -23,17 +24,25 @@ const itemsArray = cards.items;
 const sortedCards = itemsArray.sort(sortByEvolution);
 
 const AllCards = () => {
+  const { search } = useContext(SearchContext);
+  console.log(
+    "Search value from all components:",
+    search.search ? search.search.name : ""
+  );
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(8);
   const changePage = (page) => {
     setStartIndex((page - 1) * 8);
     setEndIndex(page * 8);
   };
-
+  const filteredCards =
+    search && search.search.name
+      ? sortedCards.filter((card) => card.name.includes(search.search.name))
+      : sortedCards;
   return (
     <>
       <Grid container spacing={{ xs: 1, md: 3 }} columns={12}>
-        {sortedCards.slice(startIndex, endIndex).map((card) => {
+        {filteredCards.slice(startIndex, endIndex).map((card) => {
           return (
             <Grid key={card.name} item xs={12} sm={6} md={3}>
               <Champion
@@ -52,7 +61,7 @@ const AllCards = () => {
       </Grid>
       <Stack spacing={2} sx={{ float: "right" }} padding={2}>
         <Pagination
-          count={Math.ceil(sortedCards.length / 8)}
+          count={Math.ceil(filteredCards.length / 8)}
           variant="outlined"
           onChange={(e, page) => changePage(page)}
         />
