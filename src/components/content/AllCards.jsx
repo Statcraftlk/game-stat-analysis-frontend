@@ -25,10 +25,6 @@ const sortedCards = itemsArray.sort(sortByEvolution);
 
 const AllCards = () => {
   const { search } = useContext(SearchContext);
-  console.log(
-    "Search value from all components:",
-    search.search ? search.search.name : ""
-  );
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(8);
   const changePage = (page) => {
