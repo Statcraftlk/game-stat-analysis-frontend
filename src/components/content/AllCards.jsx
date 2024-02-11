@@ -1,5 +1,5 @@
 import { Grid, Pagination, Stack } from "@mui/material";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import Champion from "../Card";
 import cards from "../../games/clash-royale/data.json";
 import { SearchContext } from "../../App";
@@ -25,8 +25,17 @@ const sortedCards = itemsArray.sort(sortByEvolution);
 
 const AllCards = () => {
   const { search } = useContext(SearchContext);
+  console.log(
+    "Search value from all components:",
+    search.search ? search.search.name : ""
+  );
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(8);
+  useEffect(() => {
+    setStartIndex(0);
+    setEndIndex(8);
+  }, [search]);
+
   const changePage = (page) => {
     setStartIndex((page - 1) * 8);
     setEndIndex(page * 8);
