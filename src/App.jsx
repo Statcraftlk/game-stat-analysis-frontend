@@ -21,8 +21,6 @@ function App() {
       ? "dark"
       : "light"
   );
-  console.log(localStorage.getItem("darkMode"));
-  console.log(mode);
   useEffect(() => {
     localStorage.setItem("darkMode", mode);
   }, [mode]);
