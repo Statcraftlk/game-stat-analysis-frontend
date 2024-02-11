@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
-import { useState } from "react";
-import { Menu } from "@mui/icons-material";
+
 import {
   AppBar,
+  Autocomplete,
   Box,
   Button,
+  TextField,
   Toolbar,
   Typography,
   styled,
@@ -22,6 +23,7 @@ const Navbar = ({ setMode, mode }) => {
     <AppBar position="sticky" color="primary">
       <StyledToolbar>
         <Typography variant="h6">CR Deck Analysis</Typography>
+
         <Box position="relative" display={{ md: "block", lg: "none" }}>
           <SmallMenu position="absolute" setMode={setMode} mode={mode} />
         </Box>

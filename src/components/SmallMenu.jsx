@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { LightMode, ModeNight } from "@mui/icons-material";
+import cards from "../games/clash-royale/data.json";
 import {
+  Autocomplete,
   Box,
   Button,
   List,
@@ -11,6 +13,7 @@ import {
   Menu,
   Stack,
   Switch,
+  TextField,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -74,7 +77,7 @@ const SmallMenu = ({ setMode, mode }) => {
           right: "50px",
         }}
       >
-        <List sx={{ width: { xs: "300px", md: "600px" } }}>
+        <List sx={{ width: { xs: "300px", md: "600px" }, height: "100vh" }}>
           <ListItem>
             <ListItemButton
               component={Link}
@@ -101,6 +104,18 @@ const SmallMenu = ({ setMode, mode }) => {
             >
               <ListItemText primary="Create new deck" />
             </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              getOptionLabel={(option) => option.name}
+              options={cards.items}
+              sx={{ width: { xs: 200, md: 400 } }}
+              renderInput={(params) => (
+                <TextField {...params} label="Player cards" />
+              )}
+            />
           </ListItem>
 
           <ListItem>

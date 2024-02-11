@@ -7,6 +7,7 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import {
+  Autocomplete,
   Box,
   List,
   ListItem,
@@ -14,7 +15,9 @@ import {
   ListItemIcon,
   ListItemText,
   Switch,
+  TextField,
 } from "@mui/material";
+import cards from "../games/clash-royale/data.json";
 
 // eslint-disable-next-line react/prop-types
 const Sidebar = ({ setMode, mode }) => {
@@ -49,6 +52,18 @@ const Sidebar = ({ setMode, mode }) => {
               </ListItemIcon>
               <ListItemText primary="Create new deck" />
             </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <Autocomplete
+              disablePortal
+              id="combo-box-demo"
+              getOptionLabel={(option) => option.name}
+              options={cards.items}
+              sx={{ width: 200 }}
+              renderInput={(params) => (
+                <TextField {...params} label="Player cards" />
+              )}
+            />
           </ListItem>
 
           <ListItem disablePadding>
