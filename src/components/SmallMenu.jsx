@@ -20,15 +20,16 @@ import { useState, useContext } from "react";
 import { SearchContext } from "../App";
 
 const SmallMenu = ({ setMode, mode }) => {
-  const { search, updateSearchInputs } = useContext(SearchContext);
+  const { search, updateSearchInputs } = useContext(SearchContext); // Access the search state and update function from the context
   const handleSearchInputChange = (event, newValue) => {
     if (newValue !== null) {
-      updateSearchInputs("search", newValue);
+      // Check if the input value is not null
+      updateSearchInputs("search", newValue); // Update the search input value
     } else {
-      updateSearchInputs("search", "");
+      updateSearchInputs("search", ""); // If the input value is null, set the search input value to an empty string
     }
   };
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false); // Create a state to store the open/close state of the menu
   return (
     <>
       <Button
@@ -38,6 +39,7 @@ const SmallMenu = ({ setMode, mode }) => {
           height: "40px",
         }}
       >
+        {/* code for the menu button start */}
         <Stack position="relative" paddingRight={4}>
           <Box
             sx={{
@@ -72,6 +74,7 @@ const SmallMenu = ({ setMode, mode }) => {
             }}
           />
         </Stack>
+        {/* code for the menu button end */}
       </Button>
 
       <Menu
@@ -90,7 +93,7 @@ const SmallMenu = ({ setMode, mode }) => {
           <ListItem>
             <ListItemButton
               component={Link}
-              to="/cards"
+              to="/all-cards"
               onClick={() => setOpen(false)}
             >
               <ListItemText primary="View all cards" />
@@ -99,7 +102,7 @@ const SmallMenu = ({ setMode, mode }) => {
           <ListItem>
             <ListItemButton
               component={Link}
-              to="/evo-cards"
+              to="/evolution-cards"
               onClick={() => setOpen(false)}
             >
               <ListItemText primary="View evolution cards" />

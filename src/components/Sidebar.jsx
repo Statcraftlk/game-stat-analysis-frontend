@@ -27,9 +27,10 @@ const Sidebar = ({ setMode, mode }) => {
 
   const handleSearchInputChange = (event, newValue) => {
     if (newValue !== null) {
-      updateSearchInputs("search", newValue);
+      // Check if the input value is not null
+      updateSearchInputs("search", newValue); // Update the search input value
     } else {
-      updateSearchInputs("search", "");
+      updateSearchInputs("search", ""); // If the input value is null, set the search input value to an empty string
     }
   };
   return (
@@ -41,7 +42,7 @@ const Sidebar = ({ setMode, mode }) => {
       <Box position="fixed">
         <List>
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/cards">
+            <ListItemButton component={Link} to="/all-cards">
               <ListItemIcon>
                 <Dashboard />
               </ListItemIcon>
@@ -49,7 +50,7 @@ const Sidebar = ({ setMode, mode }) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/evo-cards">
+            <ListItemButton component={Link} to="/evolution-cards">
               <ListItemIcon>
                 <TrackChanges />
               </ListItemIcon>
