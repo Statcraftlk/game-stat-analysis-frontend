@@ -6,7 +6,7 @@ import {
   Pix,
   TrackChanges,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Autocomplete,
   Box,
@@ -25,6 +25,7 @@ import { useContext } from "react";
 // eslint-disable-next-line react/prop-types
 const Sidebar = ({ setMode, mode }) => {
   const { search, updateSearchInputs } = useContext(SearchContext); // Access the search state and update function from the context
+  const location = useLocation(); // Get the current location or route
 
   const handleSearchInputChange = (event, newValue) => {
     if (newValue !== null) {
@@ -34,6 +35,9 @@ const Sidebar = ({ setMode, mode }) => {
       updateSearchInputs("search", ""); // If the input value is null, set the search input value to an empty string
     }
   };
+
+  const isAllCardsRoute = location.pathname === "/all-cards"; // Check if the current route is "/all-cards"
+
   return (
     <Box
       flex={1}
@@ -74,20 +78,22 @@ const Sidebar = ({ setMode, mode }) => {
               <ListItemText primary="Create new deck" />
             </ListItemButton>
           </ListItem>
-          <ListItem>
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
-              getOptionLabel={(option) => option.name || ""}
-              options={cards.items}
-              sx={{ width: 200 }}
-              value={search.search}
-              onChange={handleSearchInputChange}
-              renderInput={(params) => (
-                <TextField {...params} label="Player cards" />
-              )}
-            />
-          </ListItem>
+          {isAllCardsRoute && ( // Render the Autocomplete component only if the current route is "/all-cards"
+            <ListItem>
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                getOptionLabel={(option) => option.name || ""}
+                options={cards.items}
+                sx={{ width: 200 }}
+                value={search.search}
+                onChange={handleSearchInputChange}
+                renderInput={(params) => (
+                  <TextField {...params} label="Player cards" />
+                )}
+              />
+            </ListItem>
+          )}
 
           <ListItem disablePadding>
             <ListItemButton>

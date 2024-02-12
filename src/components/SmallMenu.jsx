@@ -15,11 +15,13 @@ import {
   Switch,
   TextField,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useContext } from "react";
 import { SearchContext } from "../App";
 
 const SmallMenu = ({ setMode, mode }) => {
+  const location = useLocation(); // Get the current location
+  const isAllCardsRoute = location.pathname === "/all-cards"; // Check if the current route is "/all-cards"
   const { search, updateSearchInputs } = useContext(SearchContext); // Access the search state and update function from the context
   const handleSearchInputChange = (event, newValue) => {
     if (newValue !== null) {
@@ -127,18 +129,20 @@ const SmallMenu = ({ setMode, mode }) => {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
-              getOptionLabel={(option) => option.name || ""}
-              options={cards.items}
-              sx={{ width: { xs: 200, md: 400 } }}
-              value={search.search}
-              onChange={handleSearchInputChange}
-              renderInput={(params) => (
-                <TextField {...params} label="Player cards" />
-              )}
-            />
+            {isAllCardsRoute && (
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                getOptionLabel={(option) => option.name || ""}
+                options={cards.items}
+                sx={{ width: { xs: 200, md: 400 } }}
+                value={search.search}
+                onChange={handleSearchInputChange}
+                renderInput={(params) => (
+                  <TextField {...params} label="Player cards" />
+                )}
+              />
+            )}
           </ListItem>
 
           <ListItem>
