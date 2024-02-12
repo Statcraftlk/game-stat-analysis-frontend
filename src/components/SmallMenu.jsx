@@ -93,6 +93,15 @@ const SmallMenu = ({ setMode, mode }) => {
           <ListItem>
             <ListItemButton
               component={Link}
+              to="/"
+              onClick={() => setOpen(false)}
+            >
+              <ListItemText primary="Home" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton
+              component={Link}
               to="/all-cards"
               onClick={() => setOpen(false)}
             >

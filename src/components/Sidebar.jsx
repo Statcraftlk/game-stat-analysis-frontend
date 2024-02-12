@@ -1,5 +1,6 @@
 import {
   Dashboard,
+  Home,
   LightMode,
   ModeNight,
   Pix,
@@ -41,6 +42,14 @@ const Sidebar = ({ setMode, mode }) => {
     >
       <Box position="fixed">
         <List>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/">
+              <ListItemIcon>
+                <Home />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItemButton>
+          </ListItem>
           <ListItem disablePadding>
             <ListItemButton component={Link} to="/all-cards">
               <ListItemIcon>
