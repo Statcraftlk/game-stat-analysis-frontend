@@ -9,36 +9,38 @@ import {
   createTheme,
   useMediaQuery,
 } from "@mui/material";
-import "./App.css";
+
 import { BrowserRouter } from "react-router-dom";
 import { useEffect, useState, createContext } from "react";
-export const SearchContext = createContext();
+export const SearchContext = createContext(); // Create a context to store the search input value
 function App() {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+  // Code for the theme setup start
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)"); // Check if the user has set a dark mode preference using their OS settings
   const [mode, setMode] = useState(
-    localStorage.getItem("darkMode")
-      ? localStorage.getItem("darkMode")
+    localStorage.getItem("darkMode") // Get the mode from local storage if it's available
+      ? localStorage.getItem("darkMode") // If it's not available, use the prefersDarkMode value
       : prefersDarkMode
-      ? "dark"
-      : "light"
+      ? "dark" // If the user has a dark mode preference, use the dark mode
+      : "light" // If the user has no OS preference, use the light mode
   );
   useEffect(() => {
-    localStorage.setItem("darkMode", mode);
+    localStorage.setItem("darkMode", mode); // Save the mode to local storage, will change the mode to the value of the mode state
   }, [mode]);
   const darkTheme = createTheme({
     palette: {
       mode: mode,
     },
   });
+  // Code for the theme setup end
 
-  const [search, setSearch] = useState({ search: "" });
+  const [search, setSearch] = useState({ search: "" }); // Create a state to store the search input value
 
   const updateSearchInputs = (input, value) => {
     setSearch((prevState) => ({
       ...prevState,
       [input]: value,
     }));
-  };
+  }; // Create a function to update the search input value
   return (
     <>
       <SearchContext.Provider value={{ search, updateSearchInputs }}>
