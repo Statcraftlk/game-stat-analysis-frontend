@@ -1,11 +1,12 @@
 import {
   Dashboard,
+  Home,
   LightMode,
   ModeNight,
   Pix,
   TrackChanges,
 } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Autocomplete,
   Box,
@@ -24,14 +25,19 @@ import { useContext } from "react";
 // eslint-disable-next-line react/prop-types
 const Sidebar = ({ setMode, mode }) => {
   const { search, updateSearchInputs } = useContext(SearchContext); // Access the search state and update function from the context
+  const location = useLocation(); // Get the current location or route
 
   const handleSearchInputChange = (event, newValue) => {
     if (newValue !== null) {
-      updateSearchInputs("search", newValue);
+      // Check if the input value is not null
+      updateSearchInputs("search", newValue); // Update the search input value
     } else {
-      updateSearchInputs("search", "");
+      updateSearchInputs("search", ""); // If the input value is null, set the search input value to an empty string
     }
   };
+
+  const isAllCardsRoute = location.pathname === "/all-cards"; // Check if the current route is "/all-cards"
+
   return (
     <Box
       flex={1}
@@ -41,7 +47,15 @@ const Sidebar = ({ setMode, mode }) => {
       <Box position="fixed">
         <List>
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/cards">
+            <ListItemButton component={Link} to="/">
+              <ListItemIcon>
+                <Home />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton component={Link} to="/all-cards">
               <ListItemIcon>
                 <Dashboard />
               </ListItemIcon>
@@ -49,7 +63,7 @@ const Sidebar = ({ setMode, mode }) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton component={Link} to="/evo-cards">
+            <ListItemButton component={Link} to="/evolution-cards">
               <ListItemIcon>
                 <TrackChanges />
               </ListItemIcon>
@@ -64,20 +78,22 @@ const Sidebar = ({ setMode, mode }) => {
               <ListItemText primary="Create new deck" />
             </ListItemButton>
           </ListItem>
-          <ListItem>
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
-              getOptionLabel={(option) => option.name || ""}
-              options={cards.items}
-              sx={{ width: 200 }}
-              value={search.search}
-              onChange={handleSearchInputChange}
-              renderInput={(params) => (
-                <TextField {...params} label="Player cards" />
-              )}
-            />
-          </ListItem>
+          {isAllCardsRoute && ( // Render the Autocomplete component only if the current route is "/all-cards"
+            <ListItem>
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                getOptionLabel={(option) => option.name || ""}
+                options={cards.items}
+                sx={{ width: 200 }}
+                value={search.search}
+                onChange={handleSearchInputChange}
+                renderInput={(params) => (
+                  <TextField {...params} label="Player cards" />
+                )}
+              />
+            </ListItem>
+          )}
 
           <ListItem disablePadding>
             <ListItemButton>
