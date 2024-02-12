@@ -2,13 +2,23 @@ import { Grid } from "@mui/material";
 
 import Champion from "../Card";
 import cards from "../../games/clash-royale/data.json";
+import { useContext, useEffect } from "react";
+import { SearchContext } from "../../App";
+import { useNavigate } from "react-router-dom";
 
 const EvolutionCards = () => {
+  const { search } = useContext(SearchContext);
+  const navigate = useNavigate();
   const evoCards = cards.items.filter(
     (card) =>
       card.iconUrls.evolutionMedium !== null &&
       card.iconUrls.evolutionMedium !== undefined
   );
+  useEffect(() => {
+    if (search.search && search.search.name) {
+      navigate("/all-cards");
+    }
+  });
 
   return (
     <>
