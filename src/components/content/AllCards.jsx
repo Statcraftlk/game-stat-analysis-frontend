@@ -1,7 +1,8 @@
 import { Grid, Pagination, Stack } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import Champion from "../Card";
-import cards from "../../games/clash-royale/data.json";
+
+import { SearchContext } from "../../App";
 
 const sortByEvolution = (a, b) => {
   if (a.iconUrls.evolutionMedium && !b.iconUrls.evolutionMedium) {
@@ -13,27 +14,56 @@ const sortByEvolution = (a, b) => {
   }
 };
 
-if (!cards || !Array.isArray(cards.items)) {
-  console.error(
-    "Data is not in the expected format. Expected an object with an 'items' array."
-  );
-}
-
-const itemsArray = cards.items;
-const sortedCards = itemsArray.sort(sortByEvolution);
-
 const AllCards = () => {
+  const [sortedCards, setSortedCards] = useState([]);
+  const [cards, setCards] = useState([]);
+  useEffect(() => {
+    // Simulate fetching data asynchronously
+    setTimeout(() => {
+      // Import the JSON data
+      import("../../games/clash-royale/data.json")
+        .then((data) => {
+          if (!data || !Array.isArray(data.items)) {
+            console.error(
+              "Data is not in the expected format. Expected an object with an 'items' array."
+            );
+            return;
+          }
+          // Sort the data by evolution
+          setSortedCards(data.items.sort(sortByEvolution));
+          // Set the data to the state
+          setCards(sortedCards);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }, 1000); // Simulate a delay of 1 second
+  }, []);
+  console.log("Cards data:", cards);
+  const { search } = useContext(SearchContext);
+  console.log(
+    "Search value from all components:",
+    search.search ? search.search.name : ""
+  );
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(8);
+  useEffect(() => {
+    setStartIndex(0);
+    setEndIndex(8);
+  }, [search]);
+
   const changePage = (page) => {
     setStartIndex((page - 1) * 8);
     setEndIndex(page * 8);
   };
-
+  const filteredCards =
+    search && search.search.name
+      ? sortedCards.filter((card) => card.name.includes(search.search.name))
+      : sortedCards;
   return (
     <>
       <Grid container spacing={{ xs: 1, md: 3 }} columns={12}>
-        {sortedCards.slice(startIndex, endIndex).map((card) => {
+        {filteredCards.slice(startIndex, endIndex).map((card) => {
           return (
             <Grid key={card.name} item xs={12} sm={6} md={3}>
               <Champion
@@ -52,7 +82,7 @@ const AllCards = () => {
       </Grid>
       <Stack spacing={2} sx={{ float: "right" }} padding={2}>
         <Pagination
-          count={Math.ceil(sortedCards.length / 8)}
+          count={Math.ceil(filteredCards.length / 8)}
           variant="outlined"
           onChange={(e, page) => changePage(page)}
         />

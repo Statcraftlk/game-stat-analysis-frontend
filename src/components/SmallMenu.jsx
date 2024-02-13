@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { LightMode, ModeNight } from "@mui/icons-material";
+import cards from "../games/clash-royale/data.json";
 import {
+  Autocomplete,
   Box,
   Button,
   List,
@@ -11,12 +13,25 @@ import {
   Menu,
   Stack,
   Switch,
+  TextField,
 } from "@mui/material";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useState, useContext } from "react";
+import { SearchContext } from "../App";
 
 const SmallMenu = ({ setMode, mode }) => {
-  const [open, setOpen] = useState(false);
+  const location = useLocation(); // Get the current location
+  const isAllCardsRoute = location.pathname === "/all-cards"; // Check if the current route is "/all-cards"
+  const { search, updateSearchInputs } = useContext(SearchContext); // Access the search state and update function from the context
+  const handleSearchInputChange = (event, newValue) => {
+    if (newValue !== null) {
+      // Check if the input value is not null
+      updateSearchInputs("search", newValue); // Update the search input value
+    } else {
+      updateSearchInputs("search", ""); // If the input value is null, set the search input value to an empty string
+    }
+  };
+  const [open, setOpen] = useState(false); // Create a state to store the open/close state of the menu
   return (
     <>
       <Button
@@ -26,6 +41,7 @@ const SmallMenu = ({ setMode, mode }) => {
           height: "40px",
         }}
       >
+        {/* code for the menu button start */}
         <Stack position="relative" paddingRight={4}>
           <Box
             sx={{
@@ -60,6 +76,7 @@ const SmallMenu = ({ setMode, mode }) => {
             }}
           />
         </Stack>
+        {/* code for the menu button end */}
       </Button>
 
       <Menu
@@ -74,11 +91,20 @@ const SmallMenu = ({ setMode, mode }) => {
           right: "50px",
         }}
       >
-        <List sx={{ width: { xs: "300px", md: "600px" } }}>
+        <List sx={{ width: { xs: "300px", md: "600px" }, height: "100vh" }}>
           <ListItem>
             <ListItemButton
               component={Link}
-              to="/cards"
+              to="/"
+              onClick={() => setOpen(false)}
+            >
+              <ListItemText primary="Home" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem>
+            <ListItemButton
+              component={Link}
+              to="/all-cards"
               onClick={() => setOpen(false)}
             >
               <ListItemText primary="View all cards" />
@@ -87,7 +113,7 @@ const SmallMenu = ({ setMode, mode }) => {
           <ListItem>
             <ListItemButton
               component={Link}
-              to="/evo-cards"
+              to="/evolution-cards"
               onClick={() => setOpen(false)}
             >
               <ListItemText primary="View evolution cards" />
@@ -101,6 +127,22 @@ const SmallMenu = ({ setMode, mode }) => {
             >
               <ListItemText primary="Create new deck" />
             </ListItemButton>
+          </ListItem>
+          <ListItem>
+            {isAllCardsRoute && (
+              <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                getOptionLabel={(option) => option.name || ""}
+                options={cards.items}
+                sx={{ width: { xs: 200, md: 400 } }}
+                value={search.search}
+                onChange={handleSearchInputChange}
+                renderInput={(params) => (
+                  <TextField {...params} label="Player cards" />
+                )}
+              />
+            )}
           </ListItem>
 
           <ListItem>
