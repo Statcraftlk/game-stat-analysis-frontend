@@ -1,9 +1,15 @@
-import { Grid, Pagination, Stack } from "@mui/material";
+import {
+  Backdrop,
+  CircularProgress,
+  Grid,
+  Pagination,
+  Stack,
+} from "@mui/material";
 import { useState, useContext, useEffect } from "react";
 import Champion from "../Card";
-
 import { SearchContext } from "../../App";
 
+// function to sort the cards by evolution or not (if it has an evolution image)
 const sortByEvolution = (a, b) => {
   if (a.iconUrls.evolutionMedium && !b.iconUrls.evolutionMedium) {
     return -1;
@@ -15,8 +21,12 @@ const sortByEvolution = (a, b) => {
 };
 
 const AllCards = () => {
+  const [loading, setLoading] = useState(true);
   const [sortedCards, setSortedCards] = useState([]);
-  const [cards, setCards] = useState([]);
+  const { search } = useContext(SearchContext);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(8);
+
   useEffect(() => {
     // Simulate fetching data asynchronously
     setTimeout(() => {
@@ -30,23 +40,16 @@ const AllCards = () => {
             return;
           }
           // Sort the data by evolution
-          setSortedCards(data.items.sort(sortByEvolution));
-          // Set the data to the state
-          setCards(sortedCards);
+          const sorted = data.items.sort(sortByEvolution);
+          setSortedCards(sorted);
+          setLoading(false);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
         });
     }, 1000); // Simulate a delay of 1 second
   }, []);
-  console.log("Cards data:", cards);
-  const { search } = useContext(SearchContext);
-  console.log(
-    "Search value from all components:",
-    search.search ? search.search.name : ""
-  );
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(8);
+
   useEffect(() => {
     setStartIndex(0);
     setEndIndex(8);
@@ -56,12 +59,20 @@ const AllCards = () => {
     setStartIndex((page - 1) * 8);
     setEndIndex(page * 8);
   };
+
   const filteredCards =
     search && search.search.name
       ? sortedCards.filter((card) => card.name.includes(search.search.name))
       : sortedCards;
+
   return (
     <>
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Grid container spacing={{ xs: 1, md: 3 }} columns={12}>
         {filteredCards.slice(startIndex, endIndex).map((card) => {
           return (
