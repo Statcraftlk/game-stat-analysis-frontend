@@ -1,7 +1,7 @@
 import { Grid, Pagination, Stack } from "@mui/material";
 import { useState, useContext, useEffect } from "react";
 import Champion from "../Card";
-import cards from "../../games/clash-royale/data.json";
+
 import { SearchContext } from "../../App";
 
 const sortByEvolution = (a, b) => {
@@ -14,16 +14,32 @@ const sortByEvolution = (a, b) => {
   }
 };
 
-if (!cards || !Array.isArray(cards.items)) {
-  console.error(
-    "Data is not in the expected format. Expected an object with an 'items' array."
-  );
-}
-
-const itemsArray = cards.items;
-const sortedCards = itemsArray.sort(sortByEvolution);
-
 const AllCards = () => {
+  const [sortedCards, setSortedCards] = useState([]);
+  const [cards, setCards] = useState([]);
+  useEffect(() => {
+    // Simulate fetching data asynchronously
+    setTimeout(() => {
+      // Import the JSON data
+      import("../../games/clash-royale/data.json")
+        .then((data) => {
+          if (!data || !Array.isArray(data.items)) {
+            console.error(
+              "Data is not in the expected format. Expected an object with an 'items' array."
+            );
+            return;
+          }
+          // Sort the data by evolution
+          setSortedCards(data.items.sort(sortByEvolution));
+          // Set the data to the state
+          setCards(sortedCards);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    }, 1000); // Simulate a delay of 1 second
+  }, []);
+  console.log("Cards data:", cards);
   const { search } = useContext(SearchContext);
   console.log(
     "Search value from all components:",
