@@ -1,4 +1,12 @@
-import { Grid, Pagination, Stack } from "@mui/material";
+import {
+  Backdrop,
+  Box,
+  CircularProgress,
+  Grid,
+  Pagination,
+  Skeleton,
+  Stack,
+} from "@mui/material";
 import { useState, useContext, useEffect } from "react";
 import Champion from "../Card";
 
@@ -15,6 +23,7 @@ const sortByEvolution = (a, b) => {
 };
 
 const AllCards = () => {
+  const [loading, setLoading] = useState(true);
   const [sortedCards, setSortedCards] = useState([]);
   const [cards, setCards] = useState([]);
   useEffect(() => {
@@ -33,6 +42,7 @@ const AllCards = () => {
           setSortedCards(data.items.sort(sortByEvolution));
           // Set the data to the state
           setCards(sortedCards);
+          setLoading(false);
         })
         .catch((error) => {
           console.error("Error fetching data:", error);
@@ -62,6 +72,17 @@ const AllCards = () => {
       : sortedCards;
   return (
     <>
+      {loading && (
+        <>
+          Fetching data...
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={loading}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+        </>
+      )}
       <Grid container spacing={{ xs: 1, md: 3 }} columns={12}>
         {filteredCards.slice(startIndex, endIndex).map((card) => {
           return (
